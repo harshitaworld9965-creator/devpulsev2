@@ -1,26 +1,28 @@
-import { useState } from "react";
+function SearchBar({
+  username,
+  setUsername,
+  setSearchedUsername,
+}) {
+  function handleSubmit(event) {
+    event.preventDefault();
 
-function SearchBar() {
-    const [username, setUsername] = useState("");
-    const [searchedUsername, setSearchedUsername] = useState("");
+    setSearchedUsername(username);
+  }
 
-    return (
-        <section>
-            <input
-                type="text"
-                placeholder="Enter GitHub username"
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-            />
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Enter GitHub username"
+        value={username}
+        onChange={(event) => setUsername(event.target.value)}
+      />
 
-            <button onClick={() => setSearchedUsername(username)}>
-                Analyze Developer
-            </button>
-            <p>Submitted username: {searchedUsername}</p>
-
-            <p>Searching for: {username}</p>
-        </section>
-    );
+      <button type="submit">
+        Analyze Developer
+      </button>
+    </form>
+  );
 }
 
 export default SearchBar;
