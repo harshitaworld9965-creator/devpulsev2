@@ -1,7 +1,7 @@
-function Header() {
+function Header({title}) {
   return (
     <header>
-      <h1>DevPulse</h1>
+      <h1>{title}</h1>
       <p>Developer Intelligence Dashboard</p>
     </header>
   );
