@@ -1,19 +1,43 @@
-import WelcomeCard from "./WelcomeCard";
+import { useEffect, useState } from "react";
 
 function Dashboard() {
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    async function fetchProfile() {
+      const response = await fetch(
+        "https://api.github.com/users/octocat"
+      );
+
+      const data = await response.json();
+
+      setProfile(data);
+    }
+
+    fetchProfile();
+  }, []);
+
   return (
     <main>
-      <WelcomeCard title="Your Developer Intelligence"
-      description="Enter a Github username to analyse their profile" 
-      />
-      <WelcomeCard title= "Repository insights"
-      description="Explore repositories, languages, stars and developer activity" />
-      <WelcomeCard
-  title="Public Repositories"
-  value={127}
-  description="Repositories owned by this developer."
-  featured={true}
-/>
+      <h2>Developer Profile</h2>
+
+      {profile && (
+        <div>
+          <img
+            src={profile.avatar_url}
+            alt={profile.login}
+            width="100"
+          />
+
+          <h3>{profile.name}</h3>
+
+          <p>@{profile.login}</p>
+
+          <p>{profile.bio}</p>
+
+          <p>Repositories: {profile.public_repos}</p>
+        </div>
+      )}
     </main>
   );
 }
